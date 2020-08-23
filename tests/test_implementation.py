@@ -6,6 +6,15 @@ from pypopulation import implementation as imp
 class TestImplementation(unittest.TestCase):
     """Test the implementation module."""
 
+    def setUp(self) -> None:
+        """
+        Clear LRU caches.
+
+        Ensure that nothing is cached before each test.
+        """
+        imp._load_file.cache_clear()
+        imp._initialize.cache_clear()
+
     # region: resource file
 
     def test_file_exists(self):
