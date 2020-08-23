@@ -31,31 +31,35 @@ def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
     return alpha_2, alpha_3
 
 
+def _normalize(country_code: str) -> str:
+    """Normalize `country_code` casing."""
+    return country_code.upper()
+
+
 def get_population(country_code: str) -> t.Optional[int]:
     """
-    Get population for either Alpha-2 or Alpha-3 `country_code`.
+    Get population for either Alpha-2 or Alpha-3 `country_code` caseless.
 
     None if `country_code` does not exist in either map.
     """
-    a2_map, a3_map = _initialize()
-    return a2_map.get(country_code) or a3_map.get(country_code)
+    return get_population_a2(country_code) or get_population_a3(country_code)
 
 
 def get_population_a2(country_code: str) -> t.Optional[int]:
     """
-    Get population for Alpha-2 `country_code`.
+    Get population for Alpha-2 `country_code` caseless.
 
     None if `country_code` does not exist in the map.
     """
     a2_map, _ = _initialize()
-    return a2_map.get(country_code)
+    return a2_map.get(_normalize(country_code))
 
 
 def get_population_a3(country_code: str) -> t.Optional[int]:
     """
-    Get population for Alpha-3 `country_code`.
+    Get population for Alpha-3 `country_code` caseless.
 
     None if `country_code` does not exist in the map.
     """
     _, a3_map = _initialize()
-    return a3_map.get(country_code)
+    return a3_map.get(_normalize(country_code))
