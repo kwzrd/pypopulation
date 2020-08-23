@@ -42,9 +42,7 @@ def get_population(country_code: str) -> t.Optional[int]:
 
     None if `country_code` does not exist in either map.
     """
-    normal_code = _normalize(country_code)
-    a2_map, a3_map = _initialize()
-    return a2_map.get(normal_code) or a3_map.get(normal_code)
+    return get_population_a2(country_code) or get_population_a3(country_code)
 
 
 def get_population_a2(country_code: str) -> t.Optional[int]:
