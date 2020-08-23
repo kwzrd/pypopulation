@@ -7,10 +7,15 @@ DATAFILE = Path(__file__).parent.joinpath("resources", "countries.json")
 PopulationMap = t.Dict[str, int]  # From country code to its population
 
 
+def _load_file() -> t.List[t.Dict]:
+    """Load `DATAFILE` into a Python list object."""
+    with DATAFILE.open(mode="r", encoding="UTF-8") as datafile:
+        return json.load(datafile)
+
+
 def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
     """Init Alpha-2 and Alpha-3 maps from `DATAFILE`."""
-    with DATAFILE.open(mode="r", encoding="UTF-8") as datafile:
-        country_list: t.List[t.Dict] = json.load(datafile)
+    country_list = _load_file()
 
     alpha_2: PopulationMap = {}
     alpha_3: PopulationMap = {}
