@@ -1,6 +1,12 @@
 import unittest
+from unittest.mock import MagicMock, patch
 
 from pypopulation import implementation as imp
+
+mock_a2_map = {"AA": 1}
+mock_a3_map = {"BBB": 2}
+
+mock_initialize = MagicMock(return_value=(mock_a2_map, mock_a3_map))
 
 
 class TestImplementation(unittest.TestCase):
