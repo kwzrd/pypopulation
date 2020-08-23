@@ -70,19 +70,41 @@ class TestImplementation(unittest.TestCase):
         pairs = [("", ""), (" ", " "), ("a", "A"), ("A", "A"), ("aBc", "ABC")]
         self.check_pairs(pairs, imp._normalize)
 
-    @patch("pypopulation.implementation._initialize", mock_initialize)
-    def test_general_lookup(self):
-        """Find populations for both 'AA' and 'BBB' using `get_population`."""
-        pairs = (
-            ("", None),
-            ("A", None),
-            ("AA", 1),
-            ("AAA", None),
-            ("B", None),
-            ("BB", None),
-            ("BBB", 2),
-        )
-        self.check_pairs(pairs, imp.get_population)
+    def test_general_lookup_not_a_country(self):
+        """Check both maps and return None when queried code does not exist."""
+        patch_a2 = patch("pypopulation.implementation.get_population_a2", MagicMock(return_value=None))
+        patch_a3 = patch("pypopulation.implementation.get_population_a3", MagicMock(return_value=None))
+
+        with patch_a2 as mock_a2, patch_a3 as mock_a3:
+            out_value = imp.get_population("not_a_country")
+
+        self.assertIsNone(out_value)
+        mock_a2.assert_called_once_with("not_a_country")
+        mock_a3.assert_called_once_with("not_a_country")
+
+    def test_general_lookup_ask_a2_a3(self):
+        """Check both maps and return population when queried code exists in a3 map."""
+        patch_a2 = patch("pypopulation.implementation.get_population_a2", MagicMock(return_value=None))
+        patch_a3 = patch("pypopulation.implementation.get_population_a3", MagicMock(return_value=1234))
+
+        with patch_a2 as mock_a2, patch_a3 as mock_a3:
+            out_value = imp.get_population("alpha_3")
+
+        self.assertEqual(out_value, 1234)
+        mock_a2.assert_called_once_with("alpha_3")
+        mock_a3.assert_called_once_with("alpha_3")
+
+    def test_general_lookup_ask_a2_only(self):
+        """Check first map only and return population when queried code exists in a2 map."""
+        patch_a2 = patch("pypopulation.implementation.get_population_a2", MagicMock(return_value=1234))
+        patch_a3 = patch("pypopulation.implementation.get_population_a3", MagicMock(return_value=5678))
+
+        with patch_a2 as mock_a2, patch_a3 as mock_a3:
+            out_value = imp.get_population("alpha_2")
+
+        self.assertEqual(out_value, 1234)
+        mock_a2.assert_called_once_with("alpha_2")
+        mock_a3.assert_not_called()  # In this case, the A3 map is never called
 
     @patch("pypopulation.implementation._initialize", mock_initialize)
     def test_alpha_2_lookup(self):
