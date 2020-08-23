@@ -17,3 +17,4 @@ python_version = "3.8"
 [scripts]
 lint = "flake8"
 test = "coverage run -m unittest"
+html = "coverage html"

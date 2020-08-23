@@ -6,3 +6,6 @@ __pycache__/
 
 # Output file produced by coverage.py
 .coverage
+
+# HTML coverage report
+htmlcov
