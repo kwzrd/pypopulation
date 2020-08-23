@@ -34,3 +34,19 @@ class TestImplementation(unittest.TestCase):
         self.assertIs(obj_a, obj_b)
 
     # endregion
+    # region: map initialization
+
+    def test_map_init(self):
+        """Country maps initialize from the resource file."""
+        a2_map, a3_map = imp._initialize()
+        self.assertIsInstance(a2_map, dict)
+        self.assertIsInstance(a3_map, dict)
+
+    def test_map_is_cached(self):
+        """Country maps are cached and do not re-build on re-query."""
+        a2_map_a, a3_map_a = imp._initialize()
+        a2_map_b, a3_map_b = imp._initialize()
+        self.assertIs(a2_map_a, a2_map_b)
+        self.assertIs(a3_map_a, a3_map_b)
+
+    # endregion
