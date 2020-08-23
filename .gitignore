@@ -1,2 +1,8 @@
 # JetBrains things
 .idea/
+
+# Bytecode cache
+__pycache__/
+
+# Output file produced by coverage.py
+.coverage
