@@ -1,0 +1,5 @@
+[flake8]
+max-line-length=100
+import-order-style=pycharm
+application_import_names=pypopulation,tests
+per-file-ignores=tests/*:ANN
