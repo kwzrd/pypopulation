@@ -65,6 +65,11 @@ class TestImplementation(unittest.TestCase):
             with self.subTest(code=code, expected_population=expected_population):
                 self.assertEqual(expected_population, func(code))
 
+    def test_normalize(self):
+        """The `_normalize_` functions makes all strings uppercase."""
+        pairs = [("", ""), (" ", " "), ("a", "A"), ("A", "A"), ("aBc", "ABC")]
+        self.check_pairs(pairs, imp._normalize)
+
     @patch("pypopulation.implementation._initialize", mock_initialize)
     def test_general_lookup(self):
         """Find populations for both 'AA' and 'BBB' using `get_population`."""
