@@ -24,3 +24,30 @@ def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
 
 
 a2_map, a3_map = _initialize()
+
+
+def get_population(country_code: str) -> t.Optional[int]:
+    """
+    Get population for either Alpha-2 or Alpha-3 `country_code`.
+
+    None if `country_code` does not exist in either map.
+    """
+    return a2_map.get(country_code) or a3_map.get(country_code)
+
+
+def get_population_a2(country_code: str) -> t.Optional[int]:
+    """
+    Get population for Alpha-2 `country_code`.
+
+    None if `country_code` does not exist in the map.
+    """
+    return a2_map.get(country_code)
+
+
+def get_population_a3(country_code: str) -> t.Optional[int]:
+    """
+    Get population for Alpha-3 `country_code`.
+
+    None if `country_code` does not exist in the map.
+    """
+    return a3_map.get(country_code)
