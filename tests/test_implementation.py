@@ -109,29 +109,15 @@ class TestImplementation(unittest.TestCase):
     @patch("pypopulation.implementation._initialize", mock_initialize)
     def test_alpha_2_lookup(self):
         """Find populations for 'AA' but not 'BBB' using `get_population_a2`."""
-        pairs = (
-            ("", None),
-            ("A", None),
-            ("AA", 1),
-            ("AAA", None),
-            ("B", None),
-            ("BB", None),
-            ("BBB", None),
-        )
-        self.check_pairs(pairs, imp.get_population_a2)
+        none_pairs = [(code, None) for code in ("", "a", "A", "b", "B")]
+        good_pairs = [(code, 1) for code in ("aa", "aA", "AA")]
+        self.check_pairs(none_pairs + good_pairs, imp.get_population_a2)
 
     @patch("pypopulation.implementation._initialize", mock_initialize)
     def test_alpha_3_lookup(self):
         """Find populations for 'BBB' but not 'AA' using `get_population_a3`."""
-        pairs = (
-            ("", None),
-            ("A", None),
-            ("AA", None),
-            ("AAA", None),
-            ("B", None),
-            ("BB", None),
-            ("BBB", 2),
-        )
-        self.check_pairs(pairs, imp.get_population_a3)
+        none_pairs = [(code, None) for code in ("", "a", "A", "b", "B")]
+        good_pairs = [(code, 2) for code in ("bbb", "bbB", "BBB")]
+        self.check_pairs(none_pairs + good_pairs, imp.get_population_a3)
 
     # endregion
