@@ -1,3 +1,4 @@
+import typing as t
 import unittest
 from unittest.mock import MagicMock, patch
 
@@ -54,5 +55,56 @@ class TestImplementation(unittest.TestCase):
         a2_map_b, a3_map_b = imp._initialize()
         self.assertIs(a2_map_a, a2_map_b)
         self.assertIs(a3_map_a, a3_map_b)
+
+    # endregion
+    # region: lookups
+
+    def check_pairs(self, pairs: t.Iterable[t.Tuple], func: t.Callable):
+        """Run `pairs` of input, expected output and compare them against `func` result."""
+        for code, expected_population in pairs:
+            with self.subTest(code=code, expected_population=expected_population):
+                self.assertEqual(expected_population, func(code))
+
+    @patch("pypopulation.implementation._initialize", mock_initialize)
+    def test_general_lookup(self):
+        """Find populations for both 'AA' and 'BBB' using `get_population`."""
+        pairs = (
+            ("", None),
+            ("A", None),
+            ("AA", 1),
+            ("AAA", None),
+            ("B", None),
+            ("BB", None),
+            ("BBB", 2),
+        )
+        self.check_pairs(pairs, imp.get_population)
+
+    @patch("pypopulation.implementation._initialize", mock_initialize)
+    def test_alpha_2_lookup(self):
+        """Find populations for 'AA' but not 'BBB' using `get_population_a2`."""
+        pairs = (
+            ("", None),
+            ("A", None),
+            ("AA", 1),
+            ("AAA", None),
+            ("B", None),
+            ("BB", None),
+            ("BBB", None),
+        )
+        self.check_pairs(pairs, imp.get_population_a2)
+
+    @patch("pypopulation.implementation._initialize", mock_initialize)
+    def test_alpha_3_lookup(self):
+        """Find populations for 'BBB' but not 'AA' using `get_population_a3`."""
+        pairs = (
+            ("", None),
+            ("A", None),
+            ("AA", None),
+            ("AAA", None),
+            ("B", None),
+            ("BB", None),
+            ("BBB", 2),
+        )
+        self.check_pairs(pairs, imp.get_population_a3)
 
     # endregion
