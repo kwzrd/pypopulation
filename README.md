@@ -22,7 +22,7 @@ The API is formed by 3 functions:
 * `get_population_a3`: population for a 3-letter country code
 * `get_population`: population for either either a 2-letter or a 3-letter country code
 
-All functions return `None` if no country is found for the given country code.
+All functions return `None` if no country is found for the given country code. **Lookup is case insensitive**, i.e. `"DE"` and `"de"` give same results.
 
 Lookups using country names are difficult & not currently supported, but the source JSON file does contain them. This is to make the source file more comprehensible. If all you have to work with is a country name, consider using [`pycountry`](https://pypi.org/project/pycountry/) to resolve your names to ISO 3166 codes first.
 
