@@ -57,7 +57,7 @@ class TestImplementation(unittest.TestCase):
         self.assertIs(a3_map_a, a3_map_b)
 
     # endregion
-    # region: lookups
+    # region: lookup methodology (on mock data)
 
     def check_pairs(self, pairs: t.Iterable[t.Tuple], func: t.Callable):
         """Run `pairs` of input, expected output and compare them against `func` result."""
@@ -121,3 +121,34 @@ class TestImplementation(unittest.TestCase):
         self.check_pairs(none_pairs + good_pairs, imp.get_population_a3)
 
     # endregion
+    # region: lookups on the actual data
+
+    def check_type(self, codes: t.Iterable[str], type_: t.Any, func: t.Callable):
+        """Check that all `codes` produce an instance of `type_` when passed to `func`."""
+        for country_code in codes:
+            with self.subTest(country_code=country_code, expected_type=type_):
+                self.assertIsInstance(func(country_code), type_)
+
+    def check_values(self, codes: t.Iterable[str], func: t.Callable):
+        """Check that all `codes` produce the same result when passed to `func`."""
+        values = set(func(code) for code in codes)
+        self.assertEqual(len(values), 1)
+
+    def test_germany(self):
+        """The same integer is returned for alternatives of Germany's country code."""
+        a2_codes = ["de", "DE", "dE"]
+        self.check_type(a2_codes, int, imp.get_population_a2)
+        self.check_values(a2_codes, imp.get_population_a2)
+
+        a3_codes = ["deu", "DEU", "dEu"]
+        self.check_type(a3_codes, int, imp.get_population_a3)
+        self.check_values(a3_codes, imp.get_population_a3)
+
+        all_codes = a2_codes + a3_codes
+        self.check_type(all_codes, int, imp.get_population)
+        self.check_values(all_codes, imp.get_population)
+
+    def test_non_country(self):
+        """None is returned for non-existing countries."""
+        non_country_codes = "abcde", "", "e"
+        self.check_type(non_country_codes, type(None), imp.get_population)
