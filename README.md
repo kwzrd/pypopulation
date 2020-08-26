@@ -21,7 +21,7 @@ The aim is to provide a minimalist package with no dependencies that does one th
 The API is formed by 3 functions:
 * `get_population_a2`: population for a 2-letter country code
 * `get_population_a3`: population for a 3-letter country code
-* `get_population`: population for either either a 2-letter or a 3-letter country code
+* `get_population`: population for either a 2-letter or a 3-letter country code
 
 All functions return `None` if no country is found for the given country code. **Lookup is case insensitive**, i.e. `"DE"` and `"de"` give same results.
 
