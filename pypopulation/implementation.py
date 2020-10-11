@@ -1,4 +1,3 @@
-import functools
 import json
 import typing as t
 from pathlib import Path
@@ -8,14 +7,12 @@ DATAFILE = Path(__file__).parent.joinpath("resources", "countries.json")
 PopulationMap = t.Dict[str, int]  # From country code to its population
 
 
-@functools.lru_cache(maxsize=1)
 def _load_file() -> t.List[t.Dict]:
     """Load `DATAFILE` into a Python list object."""
     with DATAFILE.open(mode="r", encoding="UTF-8") as datafile:
         return json.load(datafile)
 
 
-@functools.lru_cache(maxsize=1)
 def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
     """Init Alpha-2 and Alpha-3 maps from `DATAFILE`."""
     country_list = _load_file()
@@ -29,6 +26,12 @@ def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
         alpha_3[a3] = pop
 
     return alpha_2, alpha_3
+
+
+# The runtime maps get initialized the first time this module is imported,
+# which means that there is no overhead once a lookup is made, however it
+# slightly increases the cost of initial import
+_a2_map, _a3_map = _initialize()
 
 
 def _normalize(country_code: str) -> str:
@@ -51,8 +54,7 @@ def get_population_a2(country_code: str) -> t.Optional[int]:
 
     None if `country_code` does not exist in the map.
     """
-    a2_map, _ = _initialize()
-    return a2_map.get(_normalize(country_code))
+    return _a2_map.get(_normalize(country_code))
 
 
 def get_population_a3(country_code: str) -> t.Optional[int]:
@@ -61,5 +63,4 @@ def get_population_a3(country_code: str) -> t.Optional[int]:
 
     None if `country_code` does not exist in the map.
     """
-    _, a3_map = _initialize()
-    return a3_map.get(_normalize(country_code))
+    return _a3_map.get(_normalize(country_code))

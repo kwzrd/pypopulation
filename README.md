@@ -12,7 +12,7 @@ Lightweight population lookup using [ISO 3166](https://en.wikipedia.org/wiki/ISO
 83132799
 ```
 
-The aim is to provide a minimalist package with no dependencies that does one thing only, as best as possible. Population figures are read from a JSON file into Python dictionaries on the first lookup, _not_ at import time. The API then only exposes the dictionaries.
+The aim is to provide a minimalist package with no dependencies that does one thing only, as best as possible. Population figures are read from a JSON file into Python dictionaries at import time. The API then only exposes the dictionaries.
 
 **The given figures are estimates at best.** Read below for more details on the data source.
 
@@ -31,8 +31,6 @@ If you would like to build your own wrapper around the source JSON, you can do:
 ```python
 countries: t.List[t.Dict] = pypopulation._load_file()
 ```
-
-**Note**: This function is wrapped in `functools.lru_cache(max_size=1)`. 
 
 ## Installation
 
