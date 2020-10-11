@@ -1,5 +1,7 @@
-![CalVer schema](https://img.shields.io/badge/CalVer-YYYY.MINOR-blue)
-![Lint & Tests](https://github.com/kwzrd/pypopulation/workflows/Lint%20&%20Tests/badge.svg)
+![CalVer schema](https://img.shields.io/badge/CalVer-YYYY.MINOR-blue?style=flat-square)
+![Python versions](https://img.shields.io/badge/Python-v3.5%2B-blue?style=flat-square)
+![Flake8 & friends](https://img.shields.io/github/workflow/status/kwzrd/pypopulation/Lint%20&%20Tests?label=Tests,%20Flake8%20%26%20friends&style=flat-square)
+![Last commit](https://img.shields.io/github/last-commit/kwzrd/pypopulation/master?label=Last%20commit&style=flat-square)
 
 # pypopulation
 
