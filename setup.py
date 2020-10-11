@@ -9,7 +9,8 @@ setuptools.setup(
     author="kwzrd",
     author_email="kay.wzrd@gmail.com",
     url="https://github.com/kwzrd/pypopulation",
-    packages=setuptools.find_packages(),
+    packages=["pypopulation"],
+    package_data={"pypopulation": ["resources/countries.json"]},
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",

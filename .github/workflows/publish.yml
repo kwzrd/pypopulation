@@ -20,7 +20,7 @@ jobs:
     - name: Install build tools & build
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel
+        python -m pip install setuptools wheel
         python setup.py sdist bdist_wheel
 
     - name: Publish to PyPI
