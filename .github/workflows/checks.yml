@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  checks:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,14 +19,32 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Install Pipenv
-      uses: dschep/install-pipenv-action@v1
+    - name: Install Poetry
+      run: python -m pip install poetry
 
-    - name: Install dev dependencies
-      run: pipenv sync --dev
+    - name: Install dependencies
+      run: poetry install
 
-    - name: Lint with Flake8 & friends
-      run: pipenv run lint
+    - name: Run Flake8
+      run: poetry run flake8
 
-    - name: Run testing suite
-      run: pipenv run test
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Poetry
+      run: python -m pip install poetry
+
+    - name: Install dependencies
+      run: poetry install
+
+    - name: Run tests
+      run: poetry run coverage run -m unittest
