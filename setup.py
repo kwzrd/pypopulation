@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
     name="pypopulation",
-    version="2020.1",  # YYYY.MINOR
+    version="2020.2",  # YYYY.MINOR
     description="Population lookup via ISO 3166 country codes",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
