@@ -1,11 +1,11 @@
 ![CalVer schema](https://img.shields.io/badge/CalVer-YYYY.MINOR-blue?style=flat-square)
-![Python versions](https://img.shields.io/badge/Python-v3.5%2B-blue?style=flat-square)
+![Python versions](https://img.shields.io/badge/Python-v3.6.1%2B-blue?style=flat-square)
 ![Flake8 & friends](https://img.shields.io/github/workflow/status/kwzrd/pypopulation/Lint%20&%20Tests?label=Tests,%20Flake8%20%26%20friends&style=flat-square)
 ![Last commit](https://img.shields.io/github/last-commit/kwzrd/pypopulation/master?label=Last%20commit&style=flat-square)
 
 # pypopulation
 
-Lightweight population lookup using [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166) alpha-1/2 country codes for **Python 3.5** and higher.
+Lightweight population lookup using [ISO 3166](https://en.wikipedia.org/wiki/ISO_3166) alpha-1/2 country codes for **Python 3.6.1** and higher.
 
 ```python
 >>> import pypopulation
@@ -44,11 +44,20 @@ pip install pypopulation
 
 ## Development
 
-I'm using [`Pipenv`](https://github.com/pypa/pipenv) to maintain development dependencies.
+I'm using [`Poetry`](https://python-poetry.org/) to maintain development dependencies. These dependencies are only used to assure code quality. They are not necessary to use the package, and are not installed in a production environment.
 
-* `pipenv sync --dev`: create venv with dev deps
-* `pipenv run lint`: run `Flake8` & friends
-* `pipenv run test`: run `unittest` suite and produce a `.coverage` file
+Replicate the development environment:
+```
+poetry install
+```
+
+Run lint, tests and produce a `.coverage` file:
+```
+poetry run flake8
+poetry run coverage run -m unittest
+```
+
+These commands run in CI (GH Actions) on pull requests against `master`. Tests are ran on all supported Python versions. Refer to the [`Checks`](.github/workflows/checks.yml) workflow for more information. New releases trigger the [`Publish`](.github/workflows/publish.yml) workflow, which builds a distribution and pushes it to PyPI.
 
 ## Data source
 
