@@ -9,21 +9,24 @@ on:
 jobs:
   checks:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.5, 3.6, 3.7, 3.8]
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup Python
+    - name: Setup Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: ${{ matrix.python-version }}
 
     - name: Install Pipenv
       uses: dschep/install-pipenv-action@v1
 
     - name: Install dev dependencies
-      run: pipenv sync --dev
+      run: pipenv sync --dev --python ${{ matrix.python-version }}
 
     - name: Lint with Flake8 & friends
       run: pipenv run lint
