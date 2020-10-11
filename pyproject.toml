@@ -6,7 +6,7 @@ authors = ["kwzrd <kay.wzrd@gmail.com>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.5"
+python = "^3.6.1"
 
 [tool.poetry.dev-dependencies]
 coverage = "~5.2.1"
