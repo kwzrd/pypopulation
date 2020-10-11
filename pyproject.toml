@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "pypopulation"
+version = "2020.2"
+description = "Population lookup via ISO 3166 country codes"
+authors = ["kwzrd <kay.wzrd@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.5"
+
+[tool.poetry.dev-dependencies]
+coverage = "~5.2.1"
+flake8 = "~3.8.3"
+flake8-annotations = "~2.3.0"
+flake8-import-order = "~0.18.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
