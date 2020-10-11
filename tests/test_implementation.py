@@ -1,9 +1,7 @@
 import unittest
+from unittest.mock import patch
 
 from pypopulation import implementation as imp
-
-mock_a2_map = {"AA": 1}
-mock_a3_map = {"BBB": 2}
 
 
 class TestImplementationHelpers(unittest.TestCase):
@@ -52,3 +50,42 @@ class TestImplementationHelpers(unittest.TestCase):
         ]
         for before, after in cases:
             self.assertEqual(imp._normalize(before), after)
+
+
+@patch("pypopulation.implementation._a2_map", {"AA": 1})
+@patch("pypopulation.implementation._a3_map", {"BBB": 2})
+class TestImplementationLookups(unittest.TestCase):
+    """
+    Test public API lookup methods against mocked data.
+
+    This class contains test for the public functions that expose the internal data.
+    All cases are ran against mocked data. These tests are completely disconnected
+    from the resource file that is used in production.
+    """
+
+    def test_get_population(self):
+        """Get population fetches population for both A2 and A3 codes."""
+        self.assertEqual(imp.get_population("AA"), 1)
+        self.assertEqual(imp.get_population("aa"), 1)
+        self.assertEqual(imp.get_population("BBB"), 2)
+        self.assertEqual(imp.get_population("bbb"), 2)
+        self.assertEqual(imp.get_population("CCC"), None)
+        self.assertEqual(imp.get_population("ccc"), None)
+
+    def test_get_population_a2(self):
+        """Get population A2 fetches population A2 codes only."""
+        self.assertEqual(imp.get_population_a2("AA"), 1)
+        self.assertEqual(imp.get_population_a2("aa"), 1)
+        self.assertEqual(imp.get_population_a2("BBB"), None)
+        self.assertEqual(imp.get_population_a2("bbb"), None)
+        self.assertEqual(imp.get_population_a2("CCC"), None)
+        self.assertEqual(imp.get_population_a2("ccc"), None)
+
+    def test_get_population_a3(self):
+        """Get population A2 fetches population A2 codes only."""
+        self.assertEqual(imp.get_population_a3("AA"), None)
+        self.assertEqual(imp.get_population_a3("aa"), None)
+        self.assertEqual(imp.get_population_a3("BBB"), 2)
+        self.assertEqual(imp.get_population_a3("bbb"), 2)
+        self.assertEqual(imp.get_population_a3("CCC"), None)
+        self.assertEqual(imp.get_population_a3("ccc"), None)
