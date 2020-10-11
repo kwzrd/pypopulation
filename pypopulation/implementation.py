@@ -28,6 +28,12 @@ def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
     return alpha_2, alpha_3
 
 
+# The runtime maps get initialized the first time this module is imported,
+# which means that there is no overhead once a lookup is made, however it
+# slightly increases the cost of initial import
+_a2_map, _a3_map = _initialize()
+
+
 def _normalize(country_code: str) -> str:
     """Normalize `country_code` casing."""
     return country_code.upper()
