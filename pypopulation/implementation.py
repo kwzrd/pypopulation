@@ -1,4 +1,3 @@
-import functools
 import json
 import typing as t
 from pathlib import Path
@@ -8,14 +7,12 @@ DATAFILE = Path(__file__).parent.joinpath("resources", "countries.json")
 PopulationMap = t.Dict[str, int]  # From country code to its population
 
 
-@functools.lru_cache(maxsize=1)
 def _load_file() -> t.List[t.Dict]:
     """Load `DATAFILE` into a Python list object."""
     with DATAFILE.open(mode="r", encoding="UTF-8") as datafile:
         return json.load(datafile)
 
 
-@functools.lru_cache(maxsize=1)
 def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
     """Init Alpha-2 and Alpha-3 maps from `DATAFILE`."""
     country_list = _load_file()
