@@ -1,7 +1,7 @@
 ![CalVer schema](https://img.shields.io/badge/CalVer-YYYY.MINOR-blue?style=flat-square)
 ![Python versions](https://img.shields.io/badge/Python-v3.6.1%2B-blue?style=flat-square)
 ![Flake8 & friends](https://img.shields.io/github/workflow/status/kwzrd/pypopulation/Lint%20&%20Tests?label=Tests,%20Flake8%20%26%20friends&style=flat-square)
-![Last commit](https://img.shields.io/github/last-commit/kwzrd/pypopulation/master?label=Last%20commit&style=flat-square)
+![Last commit](https://img.shields.io/github/last-commit/kwzrd/pypopulation/main?label=Last%20commit&style=flat-square)
 
 # pypopulation
 
@@ -57,7 +57,7 @@ poetry run flake8
 poetry run coverage run -m unittest
 ```
 
-These commands run in CI (GH Actions) on pull requests against `master`. Tests are ran on all supported Python versions. Refer to the [`Checks`](.github/workflows/checks.yml) workflow for more information. New releases trigger the [`Publish`](.github/workflows/publish.yml) workflow, which builds a distribution and pushes it to PyPI.
+These commands run in CI (GH Actions) on pull requests against `main`. Tests are ran on all supported Python versions. Refer to the [`Checks`](.github/workflows/checks.yml) workflow for more information. New releases trigger the [`Publish`](.github/workflows/publish.yml) workflow, which builds a distribution and pushes it to PyPI.
 
 ## Data source
 
