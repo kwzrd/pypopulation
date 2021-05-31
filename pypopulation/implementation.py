@@ -4,7 +4,7 @@ from pathlib import Path
 
 DATAFILE = Path(__file__).parent.joinpath("resources", "countries.json")
 
-PopulationMap = t.Dict[str, int]  # From country code to its population
+PopulationMap = t.Dict[str, int]  # From country code to its population.
 
 
 def _load_file() -> t.List[t.Dict]:
@@ -28,9 +28,8 @@ def _initialize() -> t.Tuple[PopulationMap, PopulationMap]:
     return alpha_2, alpha_3
 
 
-# The runtime maps get initialized the first time this module is imported,
-# which means that there is no overhead once a lookup is made, however it
-# slightly increases the cost of initial import
+# The runtime maps get initialized when this module is imported.
+# As a result, there is no overhead once a lookup is made.
 _a2_map, _a3_map = _initialize()
 
 

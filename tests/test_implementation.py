@@ -31,10 +31,10 @@ class TestImplementationHelpers(unittest.TestCase):
         def check(dct, key_length):
             """Perform a series of checks on `dct`."""
             for key, value in dct.items():
-                self.assertIsInstance(key, str)  # keys must be strings
-                self.assertIsInstance(value, int)  # Values must be integers
-                self.assertEqual(len(key), key_length)  # Keys must be exactly `key_length` long
-                self.assertTrue(key.isupper())  # Keys must be strictly upper-cased
+                self.assertIsInstance(key, str)  # Keys must be strings.
+                self.assertIsInstance(value, int)  # Values must be integers.
+                self.assertEqual(len(key), key_length)  # Keys must be exactly `key_length` long.
+                self.assertTrue(key.isupper())  # Keys must be strictly upper-cased.
 
         check(a2_map, 2)
         check(a3_map, 3)
